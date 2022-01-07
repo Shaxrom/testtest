@@ -1,0 +1,6 @@
+spring:
+  cloud:
+    kubernetes:
+      enabled: false
+      reload:
+        enabled: false
