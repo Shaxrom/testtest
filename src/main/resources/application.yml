@@ -1,5 +1,34 @@
-server.port: 8093
-
 spring:
   profiles:
     active: kubernetes
+  application.name: payment-gw
+  jackson:
+    time-zone: Asia/Tashkent
+  jpa:
+    properties:
+      hibernate:
+        # batch_size determines the number of updates (inserts, updates and deletes) in a single db hit, reasonable if order_inserts is true
+        order_inserts: true
+        jdbc:
+          batch_size: 50
+
+server:
+  port: 8093
+
+pp:
+  paynet:
+    baseurl: localhost:8081
+
+logging.level.uz.episodeone.payplat.client: DEBUG
+feign:
+  circuitbreaker.enabled: true
+  hystrix.enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 5000000
+        readTimeout: 5000000
+        loggerLevel: full
+
+hystrix.command.default.execution.timeout.enabled: false
+  h

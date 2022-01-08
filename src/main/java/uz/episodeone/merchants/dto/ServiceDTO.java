@@ -3,6 +3,7 @@ package uz.episodeone.merchants.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import uz.episodeone.merchants.domain.Service;
 import uz.episodeone.merchants.domain.enums.PaymentInstrument;
 
 import java.util.Set;
@@ -25,4 +26,8 @@ public class ServiceDTO {
     private Set<RequestFieldDTO> requestFields;
     private Set<ResponseFieldDTO> responseFields;
     private Set<FillialDTO> fillials;
+
+    public ServiceDTO(Service service, PaymentInstrumentServiceDTO data) {
+
+    }
 }

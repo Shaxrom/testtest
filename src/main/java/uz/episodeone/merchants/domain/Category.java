@@ -3,12 +3,11 @@ package uz.episodeone.merchants.domain;
 import lombok.*;
 import org.hibernate.Hibernate;
 import uz.episodeone.merchants.domain.enums.PaymentInstrument;
+import uz.episodeone.merchants.domain.generic.SoftDeleteModel;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Getter
 @Setter
@@ -16,12 +15,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "category")
-public class Category implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
-    private Long id;
+public class Category extends SoftDeleteModel {
 
     private String name;
 
@@ -35,12 +29,15 @@ public class Category implements Serializable {
     @Column(name = "paynet_category_id")
     private Long paynetCategoryId;
 
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Provider> providers = new HashSet<>();
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Category category = (Category) o;
-        return id != null && Objects.equals(id, category.id);
+        return getId() != null && Objects.equals(getId(), category.getId());
     }
 
     @Override

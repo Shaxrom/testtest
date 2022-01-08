@@ -59,7 +59,7 @@ public class ProviderServicesServiceImpl implements ProviderServicesService {
                     if (service.getPaymentInstrument().equals(PaymentInstrument.GLOBALPAY)) {
                         return serviceMapper.toDto(service);
                     } else {
-                        return serviceMapper.toDto(
+                        return new ServiceDTO(
                                 service,
                                 instrumentClients.get(service.getPaymentInstrument()).getService(service.getPayInstServiceId()).getData());
                     }
@@ -100,7 +100,7 @@ public class ProviderServicesServiceImpl implements ProviderServicesService {
                     if (service.getPaymentInstrument().equals(PaymentInstrument.GLOBALPAY)) {
                         return serviceMapper.toDto(service);
                     } else {
-                        return serviceMapper.toDto(
+                        return new ServiceDTO(
                                 service,
                                 instrumentClients.get(service.getPaymentInstrument()).getService(service.getPayInstServiceId()).getData());
                     }

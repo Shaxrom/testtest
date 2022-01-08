@@ -2,14 +2,11 @@ package uz.episodeone.merchants.configuration;
 
 import feign.Feign;
 import feign.Logger;
-import feign.RequestInterceptor;
 import feign.codec.ErrorDecoder;
 import feign.okhttp.OkHttpClient;
-import org.apache.http.entity.ContentType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
-import uz.episodeone.merchants.configuration.property.AppProperties;
 
 @Configuration
 public class FeignClientConfiguration {
@@ -19,14 +16,14 @@ public class FeignClientConfiguration {
         return new OkHttpClient();
     }
 
-    @Bean
-    public RequestInterceptor requestInterceptor(AppProperties appProperties)
-    {
-        return requestTemplate -> {
-            requestTemplate.header( "Accept", ContentType.APPLICATION_JSON.getMimeType() );
-            requestTemplate.header( "Content-Type", ContentType.APPLICATION_JSON.getMimeType() );
-        };
-    }
+//    @Bean
+//    public RequestInterceptor requestInterceptor(AppProperties appProperties)
+//    {
+//        return requestTemplate -> {
+//            requestTemplate.header( "Accept", ContentType.APPLICATION_JSON.getMimeType() );
+//            requestTemplate.header( "Content-Type", ContentType.APPLICATION_JSON.getMimeType() );
+//        };
+//    }
 
     @Bean
     public Logger.Level feignLoggerLevel()

@@ -1,16 +1,15 @@
 package uz.episodeone.merchants.domain;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 import uz.episodeone.merchants.api.sync.dto.ProviderMerchantPoolDTO;
 import uz.episodeone.merchants.domain.enums.PaymentInstrument;
+import uz.episodeone.merchants.domain.generic.SoftDeleteModel;
 import uz.episodeone.merchants.dto.PaymentInstrumentProviderDTO;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -19,13 +18,8 @@ import java.util.Set;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Table(name = "provider",schema = "core")
-public class Provider implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
-    private Long id;
+@Table(name = "provider")
+public class Provider extends SoftDeleteModel {
 
     @Column(name = "legal_name")
     private String legalName;
@@ -40,10 +34,11 @@ public class Provider implements Serializable {
     private String iconId;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "payment_instrument")
     private PaymentInstrument paymentInstrument;
 
-    @Column(name = "payment-instrument-service-id", insertable = false, updatable = false)
-    private Long paymentInstrumentServiceId;
+    @Column(name = "payment_instrument_provider_id")
+    private Long paymentInstrumentProviderId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "fk_provider_category_id"))
@@ -53,7 +48,7 @@ public class Provider implements Serializable {
     private Set<Service> services = new HashSet<>();
 
     public Provider(ProviderMerchantPoolDTO providerMerchantPoolDTO) {
-        this.paymentInstrumentServiceId = providerMerchantPoolDTO.getProviderId();
+        this.paymentInstrumentProviderId = providerMerchantPoolDTO.getProviderId();
         this.paymentInstrument = PaymentInstrument.PAYNET;
     }
 
@@ -72,7 +67,7 @@ public class Provider implements Serializable {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Provider provider = (Provider) o;
-        return id != null && Objects.equals(id, provider.id);
+        return getId() != null && Objects.equals(getId(), provider.getId());
     }
 
     @Override

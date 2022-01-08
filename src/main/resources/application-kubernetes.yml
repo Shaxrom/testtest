@@ -1,0 +1,72 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        # The SQL dialect makes Hibernate generate better SQL for the chosen database
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        # Used to control if we should consult the JDBC metadata to determine certain Settings default values when the db may not be available
+        temp:
+          use_jdbc_metadata_defaults: false
+        # Initialize Lazy Proxies or Collections outside a given Transactional Persistence Context.
+        enable_lazy_load_no_trans: true
+    #        default_schema: cards
+
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    show-sql: true
+    # Hibernate ddl auto (create, create-drop, validate, update)
+    hibernate:
+      ddl-auto: none
+  ## Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://192.168.60.64:5432/payplat_merchant?currentSchema=public
+    #    url: jdbc:postgresql://192.168.0.103:5432/payplat?currentSchema=cards
+    #    url: jdbc:postgresql://192.168.10.178:5432/payplat?currentSchema=cards
+    username: merchant
+    password: 123456
+    # Hikari is a JDBC DataSource implementation that provides a connection pooling mechanism
+    hikari:
+      pool-name: SpringBootJPAHikariCP
+      connection-timeout: 60000
+      idle-timeout: 60000
+      max-lifetime: 180000
+      maximum-pool-size: 5
+      minimum-idle: 1
+      connection-test-query: SELECT 1
+      auto-commit: true
+      driver-class-name: org.postgresql.Driver
+  ## Flyway Configuration
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    check-location: true
+    validate-on-migrate: true
+    baseline-version: 1
+    out-of-order: true
+
+  cloud:
+    kubernetes:
+      #      config:
+      #        name: cards-gw-dev-config
+      #        namespace: ${KUBERNETES_NAMESPACE}
+      client:
+        namespace: default
+      enabled: true
+      secrets:
+        namespace: default
+      discovery:
+        all-namespaces: true
+      reload:
+        enabled: true
+
+eureka:
+  client:
+    enabled: false
+
+dekorate:
+  kubernetes:
+    serviceType: "NodePort"

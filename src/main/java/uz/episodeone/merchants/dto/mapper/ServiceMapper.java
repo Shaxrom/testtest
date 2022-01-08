@@ -12,12 +12,10 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface ServiceMapper {
 
-//    @Mapping(target = "humoTerminalId", source = "humoTerminalId")
     Service toEntity(ServiceDTO serviceDTO);
 
     void update(ServiceDTO serviceDTO, @MappingTarget Service serviceToUpdate);
 
-    ServiceDTO toDto(Service service, PaymentInstrumentServiceDTO paynetClientService);
 
     ServiceDTO toDto(Service save);
 

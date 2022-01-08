@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 import uz.episodeone.merchants.domain.enums.PaymentInstrument;
 import uz.episodeone.merchants.domain.generic.SoftDeleteModel;
+import uz.episodeone.merchants.dto.PaymentInstrumentServiceDTO;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -13,38 +14,38 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @Entity
-@Table(name = "service", schema = "core")
+@Table(name = "service")
 public class Service extends SoftDeleteModel {
 
-//    @Column(name = "legal_name")
-//    private String legalName;
-//
-//    @EqualsAndHashCode.Include
-//    private String name;
-//
-//    @Column(name = "discount")
-//    private String discount;
-//
-//    @Column(name = "min_amount")
-//    private Long minAmount;
-//
-//    @Column(name = "max_amount")
-//    private Long maxAmount;
-//
-//    @Column(name = "fixed_price")
-//    private Long fixedPrice;
-//
-//    @Column(name = "active", columnDefinition = "boolean default true", nullable = false)
-//    private Boolean active = true;
+    @Column(name = "legal_name")
+    private String legalName;
+
+    @EqualsAndHashCode.Include
+    private String name;
+
+    @Column(name = "discount")
+    private String discount;
+
+    @Column(name = "min_amount")
+    private Long minAmount;
+
+    @Column(name = "max_amount")
+    private Long maxAmount;
+
+    @Column(name = "fixed_price")
+    private Long fixedPrice;
+
+    @Column(name = "active")
+    private Boolean active = true;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "payment_instrument")
     private PaymentInstrument paymentInstrument;
 
-//    @Column(name = "icon_id")
-//    @ApiModelProperty(value = "ID картинка мерчанта")
-//    private String iconId;
-//
-    @Column(name = "payment-instrument-service-id", insertable = false, updatable = false)
+    @Column(name = "icon_id")
+    private String iconId;
+
+    @Column(name = "payment_instrument_service_id")
     private Long payInstServiceId;
 
     @ToString.Exclude

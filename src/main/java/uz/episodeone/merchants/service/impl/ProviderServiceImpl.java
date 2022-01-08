@@ -77,10 +77,10 @@ public class ProviderServiceImpl implements ProviderService {
             throw new IllegalStateException("Unexpected value");
         }
         providers.forEach(provider -> {
-                    if (provider.getPaymentInstrumentServiceId() != null) {
+                    if (provider.getPaymentInstrumentProviderId() != null) {
                         switch (provider.getPaymentInstrument()) {
                             case PAYNET:
-                                provider.addPayInstData(paynetClient.getProvider(provider.getPaymentInstrumentServiceId()).getData());
+                                provider.addPayInstData(paynetClient.getProvider(provider.getPaymentInstrumentProviderId()).getData());
                                 break;
                             //TODO add case for other PaymentInstrumets if they added
                         }
