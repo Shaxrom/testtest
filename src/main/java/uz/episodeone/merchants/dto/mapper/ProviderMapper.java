@@ -1,11 +1,11 @@
 package uz.episodeone.merchants.dto.mapper;
 
-import GlobalSolutions.GlobalPay.GPcore.domain.Provider;
-import GlobalSolutions.GlobalPay.GPcore.dto.ProviderDTO;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
+import uz.episodeone.merchants.domain.Provider;
+import uz.episodeone.merchants.dto.ProviderDTO;
 
 import java.util.List;
 

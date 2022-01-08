@@ -1,9 +1,9 @@
 package uz.episodeone.merchants.dto;
 
-import GlobalSolutions.GlobalPay.GPcore.domain.enums.PaymentInstrument;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import uz.episodeone.merchants.domain.enums.PaymentInstrument;
 
 import java.util.Set;
 

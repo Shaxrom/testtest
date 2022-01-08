@@ -1,11 +1,5 @@
 package uz.episodeone.merchants.helpers.exceptions.handler;
 
-import GlobalSolutions.GlobalPay.GPcore.helpers.ErrorCode;
-import GlobalSolutions.GlobalPay.GPcore.helpers.exceptions.BadRequestException;
-import GlobalSolutions.GlobalPay.GPcore.helpers.exceptions.EntityExistsException;
-import GlobalSolutions.GlobalPay.GPcore.helpers.exceptions.UnauthorizedException;
-import GlobalSolutions.GlobalPay.GPcore.helpers.utils.JsonUtils;
-import GlobalSolutions.GlobalPay.GPcore.helpers.wrapper.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
@@ -14,6 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import uz.episodeone.merchants.helpers.ErrorCode;
+import uz.episodeone.merchants.helpers.exceptions.BadRequestException;
+import uz.episodeone.merchants.helpers.exceptions.EntityExistsException;
+import uz.episodeone.merchants.helpers.exceptions.UnauthorizedException;
+import uz.episodeone.merchants.helpers.utils.JsonUtils;
+import uz.episodeone.merchants.helpers.wrapper.ErrorResponseWrapper;
+import uz.episodeone.merchants.helpers.wrapper.MessageResponse;
 
 import javax.persistence.EntityNotFoundException;
 

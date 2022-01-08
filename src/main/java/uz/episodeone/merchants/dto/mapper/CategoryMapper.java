@@ -1,10 +1,10 @@
 package uz.episodeone.merchants.dto.mapper;
 
-import GlobalSolutions.GlobalPay.GPcore.domain.Category;
-import GlobalSolutions.GlobalPay.GPcore.dto.CategoryDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
+import uz.episodeone.merchants.domain.Category;
+import uz.episodeone.merchants.dto.CategoryDTO;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.WARN, componentModel = "spring")
 public interface CategoryMapper {

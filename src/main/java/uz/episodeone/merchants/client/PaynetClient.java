@@ -1,7 +1,8 @@
 package uz.episodeone.merchants.client;
 
-import GlobalSolutions.GlobalPay.GPcore.dto.PaymentInstrumentProviderDTO;
-import GlobalSolutions.GlobalPay.GPcore.helpers.wrapper.SuccessResponseWrapper;
+
+import uz.episodeone.merchants.dto.PaymentInstrumentProviderDTO;
+import uz.episodeone.merchants.helpers.wrapper.SuccessResponseWrapper;
 
 public interface PaynetClient extends PaymentInstrumentClient{
     SuccessResponseWrapper<PaymentInstrumentProviderDTO> getProvider(Long paymentInstrumentServiceId);

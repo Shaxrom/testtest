@@ -1,54 +1,53 @@
 package uz.episodeone.merchants.dto;
 
-import GlobalSolutions.GlobalPay.GPcore.domain.enums.ProcessingType;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import uz.episodeone.merchants.domain.enums.ProcessingType;
 
 import javax.validation.constraints.NotBlank;
 
-@ApiModel
+//@ApiModel
 @Data
 @NoArgsConstructor
 public class CoreCardDTO {
 
-    @ApiModelProperty(value = "Global Pay card ID")
+//    @ApiModelProperty(value = "Global Pay card ID")
     private Long id;
 
-    @ApiModelProperty(value = "Global Pay card token")
+//    @ApiModelProperty(value = "Global Pay card token")
     @NotBlank
     private String token;
 
-    @ApiModelProperty(value = "Masked Card Number")
+//    @ApiModelProperty(value = "Masked Card Number")
     @NotBlank
     private String cardNumber;
 
-    @ApiModelProperty(value = "Last time Card balance")
+//    @ApiModelProperty(value = "Last time Card balance")
     private Long balance = 0L;
 
-    @ApiModelProperty(value = "Card expiry date")
+//    @ApiModelProperty(value = "Card expiry date")
     @NotBlank
     private String expiryDate;
 
-    @ApiModelProperty(value = "Processing System card token")
+//    @ApiModelProperty(value = "Processing System card token")
     private String externalToken;
 
-    @ApiModelProperty(value = "Phone number that's linked to card")
+//    @ApiModelProperty(value = "Phone number that's linked to card")
 //    @JsonProperty("sms_notification_number")
     private String smsNotificationNumber;
 
-    @ApiModelProperty(value = "Processing type")
+//    @ApiModelProperty(value = "Processing type")
 //    @JsonProperty("card_type")
     private ProcessingType type;
 
-    @ApiModelProperty(value = "Application card ID")
+//    @ApiModelProperty(value = "Application card ID")
 //    @JsonProperty("app_card_ai")
     private Long appCardId;
 
     private Boolean isActive;
 
-    @ApiModelProperty(value = "Card holder name")
+//    @ApiModelProperty(value = "Card holder name")
 //    @JsonProperty("holder_full_name")
     private String holderFullName;
 

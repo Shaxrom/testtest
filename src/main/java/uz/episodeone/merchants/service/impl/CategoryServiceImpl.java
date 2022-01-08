@@ -1,17 +1,17 @@
 package uz.episodeone.merchants.service.impl;
 
-import GlobalSolutions.GlobalPay.GPcore.domain.Category;
-import GlobalSolutions.GlobalPay.GPcore.dto.CategoryDTO;
-import GlobalSolutions.GlobalPay.GPcore.dto.Filter;
-import GlobalSolutions.GlobalPay.GPcore.dto.mapper.CategoryMapper;
-import GlobalSolutions.GlobalPay.GPcore.helpers.ErrorCode;
-import GlobalSolutions.GlobalPay.GPcore.repository.CategoryDAO;
-import GlobalSolutions.GlobalPay.GPcore.service.CategoryService;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import uz.episodeone.merchants.domain.Category;
+import uz.episodeone.merchants.dto.CategoryDTO;
+import uz.episodeone.merchants.dto.Filter;
+import uz.episodeone.merchants.dto.mapper.CategoryMapper;
+import uz.episodeone.merchants.helpers.ErrorCode;
+import uz.episodeone.merchants.repository.CategoryDAO;
+import uz.episodeone.merchants.service.CategoryService;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
