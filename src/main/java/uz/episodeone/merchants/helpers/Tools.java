@@ -19,14 +19,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
-/**
- * Created by mansurmuzaffarov on 24/10/17.
- */
 public class Tools {
-
-
     public static Instant toInstant(LocalDateTime ldt, String timeZone) {
         return ldt.atZone(ZoneId.of(timeZone)).toInstant();
     }
-
 }

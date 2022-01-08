@@ -1,7 +1,7 @@
 package uz.episodeone.merchants.client;
 
-import GlobalSolutions.GlobalPay.GPcore.dto.PaymentInstrumentServiceDTO;
-import GlobalSolutions.GlobalPay.GPcore.helpers.wrapper.SuccessResponseWrapper;
+import uz.episodeone.merchants.dto.PaymentInstrumentServiceDTO;
+import uz.episodeone.merchants.helpers.wrapper.SuccessResponseWrapper;
 
 import java.util.List;
 

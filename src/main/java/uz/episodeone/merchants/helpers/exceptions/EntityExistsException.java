@@ -1,8 +1,8 @@
 package uz.episodeone.merchants.helpers.exceptions;
 
-import GlobalSolutions.GlobalPay.GPcore.card.domain.generic.Identity;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import uz.episodeone.merchants.domain.generic.Identity;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST,code = HttpStatus.BAD_REQUEST)
 public class EntityExistsException extends javax.persistence.EntityExistsException {
