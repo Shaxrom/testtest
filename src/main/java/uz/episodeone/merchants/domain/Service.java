@@ -14,7 +14,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "service", schema = "core")
-@NoArgsConstructor
 public class Service extends SoftDeleteModel {
 
 //    @Column(name = "legal_name")
@@ -63,7 +62,7 @@ public class Service extends SoftDeleteModel {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Service service = (Service) o;
-        return id != null && Objects.equals(id, service.id);
+        return getId() != null && Objects.equals(getId(), service.getId());
     }
 
     @Override

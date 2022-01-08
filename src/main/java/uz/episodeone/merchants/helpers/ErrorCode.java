@@ -9,7 +9,8 @@ public enum ErrorCode {
     BAD_REQUEST("3"),
     NOT_AUTHORIZED("4"),
     SERVICE_NOT_AVAILABLE("5"),
-    SERVICE_ERROR("6");
+    SERVICE_ERROR("6"),
+    CATEGORY_NOT_FOUND("36");
 
 
     private final String value;
