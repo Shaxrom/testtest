@@ -12,7 +12,7 @@ spring:
           use_jdbc_metadata_defaults: false
         # Initialize Lazy Proxies or Collections outside a given Transactional Persistence Context.
         enable_lazy_load_no_trans: true
-    #        default_schema: cards
+#        default_schema: merchants
 
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
@@ -23,9 +23,9 @@ spring:
   ## Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://192.168.60.64:5432/payplat_merchant?currentSchema=public
+#    url: jdbc:postgresql://192.168.60.64:5432/payplat_merchant?currentSchema=public
     #    url: jdbc:postgresql://192.168.0.103:5432/payplat?currentSchema=cards
-    #    url: jdbc:postgresql://192.168.10.178:5432/payplat?currentSchema=cards
+    url: jdbc:postgresql://127.0.0.1:5432/payplat_merchant?currentSchema=public
     username: merchant
     password: 123456
     # Hikari is a JDBC DataSource implementation that provides a connection pooling mechanism

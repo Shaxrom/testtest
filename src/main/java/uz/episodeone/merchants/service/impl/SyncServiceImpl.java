@@ -64,7 +64,7 @@ public class SyncServiceImpl implements SyncService {
     private void syncService(List<ProviderMerchantPoolDTO> providers) {
         providers.forEach(p -> {
             Long providerId = providerDAO
-                    .findByPaymentInstrumentId(p.getProviderId())
+                    .findByPaymentInstrumentProviderId(p.getProviderId())
                     .orElseThrow(() -> new BadRequestException())
                     .getId();
 

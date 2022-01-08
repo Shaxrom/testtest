@@ -122,7 +122,7 @@ public class ProviderServicesServiceImpl implements ProviderServicesService {
                     services = merchantDAO.findAllById(ids);
                     break;
                 case PROVIDER:
-                    services = merchantDAO.findByProviderIds(ids);
+                    services = merchantDAO.findByProviderIdIn(ids);
                     break;
             }
         } else {

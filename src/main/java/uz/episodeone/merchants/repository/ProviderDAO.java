@@ -29,10 +29,11 @@ public interface ProviderDAO extends JpaRepository<Provider, Long> {
                     "where pс.id in ?1 and ps.active is true and p.active is true")
     List<Provider> findByCategoryIdAndActiveTrue(List<Long> categoryIds);
 
+    @Query("select p from Provider p join p.services s where s.id in ?1")
     List<Provider> findByServiceIds(List<Long> ids);
 
     List<Provider> findByCategoryId(Long categoryId);
 
-    Optional<Provider> findByPaymentInstrumentId(Long providerId);
+    Optional<Provider> findByPaymentInstrumentProviderId(Long providerId);
 }
 

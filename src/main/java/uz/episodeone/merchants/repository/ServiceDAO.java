@@ -16,11 +16,6 @@ import java.util.Optional;
 @Repository
 public interface ServiceDAO extends JpaRepository<Service, Long> {
 
-    @EntityGraph(value = "Service.categoryAndNames")
-    Page<Service> findByCategoryIdAndActiveTrue(Long categoryId, Pageable pageable);
-
-    @EntityGraph(value = "Service.categoryAndNames")
-    List<Service> findByCategoryIdAndActiveTrue(Long categoryId);
 
     @EntityGraph(value = "Service.all")
     Page<Service> findByProvider_IdAndActiveTrue(Long categoryId, Pageable pageable);
@@ -31,9 +26,6 @@ public interface ServiceDAO extends JpaRepository<Service, Long> {
     @Query("select e from Service e where e.provider in ?1")
     List<Service> findByProviderIn(List<Provider> providers);
 
-    @EntityGraph(value = "Service.all")
-    Optional<Service> findByProvider_IdAndActiveTrueAndStep(Long providerId, String step);
-
     @EntityGraph(value = "Service.categoryAndNames")
     Page<Service> readAllByIdNotNull(Pageable pageable);
 
@@ -43,13 +35,12 @@ public interface ServiceDAO extends JpaRepository<Service, Long> {
     @Query("select e from Service e where e.updatedAt > dateTime and e.deletedAt = null")
     List<Service> findAllNewlyUpdated(Instant dateTime);
 
-    List<Service> findAllByCategoryIdAndDeletedAtIsNull(Long categoryId);
-
     List<Service> findByProviderIdAndActiveTrue(Long providerId);
 
+    @Query("select s from Service s join s.provider p join p.category c where c.id in ?1 and s.active is true")
     List<Service> findByCategoryIdsAndActiveTrue(List<Long> ids);
 
-    List<Service> findByProviderIds(List<Long> ids);
+    List<Service> findByProviderIdIn(List<Long> ids);
 
     List<Service> findByProviderId(Long providerId);
 }
