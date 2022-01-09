@@ -37,7 +37,9 @@ public class CategoryServiceImpl implements CategoryService {
         } else if (ids != null ){
             switch (filter) {
                 case CATEGORY: categories = categoryDAO.findAllById(ids); break;
-                case PROVIDER : categories = categoryDAO.findByProviderId(ids); break;
+                case PROVIDER : categories = categoryDAO.
+
+                        findByProviderId(ids); break;
                 case SERVICE : categories = categoryDAO.findByServiceIds(ids); break;
             }
         } else {
