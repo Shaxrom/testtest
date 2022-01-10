@@ -31,7 +31,7 @@ public class MerchantEndpoint {
 
     MerchantService merchantService;
 
-    @PostMapping("/initBilling")
+    @PostMapping("/billing/init")
     public SuccessResponseWrapper<MerchantServiceDetailsDto> initBilling(
             @RequestBody InitBillingDto initBillingDto) {
         return successApiResponse(merchantService.initBilling(initBillingDto));
