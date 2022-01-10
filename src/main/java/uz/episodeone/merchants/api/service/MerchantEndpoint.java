@@ -6,11 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import uz.episodeone.merchants.dto.Filter;
+import uz.episodeone.merchants.dto.InitBillingDto;
+import uz.episodeone.merchants.dto.MerchantServiceDetailsDto;
 import uz.episodeone.merchants.dto.ServiceDTO;
 import uz.episodeone.merchants.helpers.Constants;
 import uz.episodeone.merchants.helpers.wrapper.EmptyResponse;
 import uz.episodeone.merchants.helpers.wrapper.SuccessResponseWrapper;
-import uz.episodeone.merchants.service.ProviderServicesService;
+import uz.episodeone.merchants.service.MerchantService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,9 +27,15 @@ import static uz.episodeone.merchants.helpers.utils.JsonUtils.successApiResponse
 @RequestMapping(Constants.API_BASE_PATH + "/services")
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @AllArgsConstructor(access = PACKAGE)
-public class ServiceEndpoint {
+public class MerchantEndpoint {
 
-    ProviderServicesService merchantService;
+    MerchantService merchantService;
+
+    @PostMapping("/initBilling")
+    public SuccessResponseWrapper<MerchantServiceDetailsDto> initBilling(
+            @RequestBody InitBillingDto initBillingDto) {
+        return successApiResponse(merchantService.initBilling(initBillingDto));
+    }
 
     @GetMapping
     public SuccessResponseWrapper<List<ServiceDTO>> get(

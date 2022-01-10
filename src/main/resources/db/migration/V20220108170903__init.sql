@@ -51,6 +51,10 @@ CREATE TABLE public.service
   fixed_price bigint,
   payment_instrument varchar(255),
   icon_id varchar(255),
+  uzcard_merchant_id varchar(255),
+  uzcard_terminal_id varchar(255),
+  humo_merchant_id varchar(255),
+  humo_terminal_id varchar(255),
   payment_instrument_service_id bigint,
   provider_id bigint constraint fk_provider_id references provider
 )

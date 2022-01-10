@@ -11,12 +11,15 @@ import uz.episodeone.merchants.client.PaynetClient;
 import uz.episodeone.merchants.domain.Service;
 import uz.episodeone.merchants.domain.enums.PaymentInstrument;
 import uz.episodeone.merchants.dto.Filter;
+import uz.episodeone.merchants.dto.InitBillingDto;
+import uz.episodeone.merchants.dto.MerchantServiceDetailsDto;
 import uz.episodeone.merchants.dto.ServiceDTO;
 import uz.episodeone.merchants.dto.mapper.ServiceMapper;
 import uz.episodeone.merchants.helpers.ErrorCode;
 import uz.episodeone.merchants.helpers.Tools;
+import uz.episodeone.merchants.helpers.exceptions.BadRequestException;
 import uz.episodeone.merchants.repository.ServiceDAO;
-import uz.episodeone.merchants.service.ProviderServicesService;
+import uz.episodeone.merchants.service.MerchantService;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
@@ -30,14 +33,14 @@ import static lombok.AccessLevel.PRIVATE;
 @Slf4j
 @org.springframework.stereotype.Service
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class ProviderServicesServiceImpl implements ProviderServicesService {
+public class MerchantServiceImpl implements MerchantService {
     ServiceDAO merchantDAO;
     ServiceMapper serviceMapper;
     JacksonProperties jacksonProperties;
     HashMap<PaymentInstrument, PaymentInstrumentClient> instrumentClients;
 
     @Autowired
-    public ProviderServicesServiceImpl(
+    public MerchantServiceImpl(
             ServiceDAO merchantDAO,
             ServiceMapper serviceMapper,
             JacksonProperties jacksonProperties,
@@ -106,6 +109,20 @@ public class ProviderServicesServiceImpl implements ProviderServicesService {
                     }
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public MerchantServiceDetailsDto initBilling(InitBillingDto initBillingDto) {
+        Service service = merchantDAO.findById(initBillingDto.getServiceId())
+                .orElseThrow(() -> new BadRequestException(ErrorCode.NOT_FOUND.getValue()));
+
+        return MerchantServiceDetailsDto.builder()
+                .humoMerchantId(service.getHumoMerchantId())
+                .humoTerminalId(service.getHumoTerminalId())
+                .uzcardMerchantId(service.getUzcardMerchantId())
+                .uzcardTerminalId(service.getUzcardTerminalId())
+                .build();
+
     }
 
     @Override

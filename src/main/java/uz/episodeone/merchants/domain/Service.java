@@ -48,6 +48,18 @@ public class Service extends SoftDeleteModel {
     @Column(name = "payment_instrument_service_id")
     private Long payInstServiceId;
 
+    @Column(name = "uzcard_merchant_id")
+    private String uzcardMerchantId;
+
+    @Column(name = "uzcard_terminal_id")
+    private String uzcardTerminalId;
+
+    @Column(name = "humo_merchant_id")
+    private String humoMerchantId;
+
+    @Column(name = "humo_terminal_id")
+    private String humoTerminalId;
+
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "provider_id", foreignKey = @ForeignKey(name = "fk_provider_merchant_id"))
