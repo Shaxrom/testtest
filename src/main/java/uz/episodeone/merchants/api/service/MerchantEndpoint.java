@@ -5,10 +5,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import uz.episodeone.merchants.dto.Filter;
-import uz.episodeone.merchants.dto.InitBillingDto;
-import uz.episodeone.merchants.dto.MerchantServiceDetailsDto;
-import uz.episodeone.merchants.dto.ServiceDTO;
+import uz.episodeone.merchants.dto.*;
 import uz.episodeone.merchants.helpers.Constants;
 import uz.episodeone.merchants.helpers.wrapper.EmptyResponse;
 import uz.episodeone.merchants.helpers.wrapper.SuccessResponseWrapper;
@@ -35,6 +32,13 @@ public class MerchantEndpoint {
     public SuccessResponseWrapper<MerchantServiceDetailsDto> initBilling(
             @RequestBody InitBillingDto initBillingDto) {
         return successApiResponse(merchantService.initBilling(initBillingDto));
+    }
+
+    @PostMapping("/billing/submit")
+    public EmptyResponse submit(
+            @RequestBody SubmitPaymentDto submitPaymentDto) {
+        merchantService.submitBilling(submitPaymentDto);
+        return emptyApiResponse();
     }
 
     @GetMapping

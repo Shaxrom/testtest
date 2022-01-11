@@ -10,10 +10,7 @@ import uz.episodeone.merchants.client.PaymentInstrumentClient;
 import uz.episodeone.merchants.client.PaynetClient;
 import uz.episodeone.merchants.domain.Service;
 import uz.episodeone.merchants.domain.enums.PaymentInstrument;
-import uz.episodeone.merchants.dto.Filter;
-import uz.episodeone.merchants.dto.InitBillingDto;
-import uz.episodeone.merchants.dto.MerchantServiceDetailsDto;
-import uz.episodeone.merchants.dto.ServiceDTO;
+import uz.episodeone.merchants.dto.*;
 import uz.episodeone.merchants.dto.mapper.ServiceMapper;
 import uz.episodeone.merchants.helpers.ErrorCode;
 import uz.episodeone.merchants.helpers.Tools;
@@ -123,6 +120,12 @@ public class MerchantServiceImpl implements MerchantService {
                 .uzcardTerminalId(service.getUzcardTerminalId())
                 .build();
 
+    }
+
+    @Override
+    public void submitBilling(SubmitPaymentDto billingTransactionId) {
+        merchantDAO.findById(billingTransactionId.getServiceId())
+                .orElseThrow(() -> new BadRequestException(ErrorCode.NOT_FOUND.getValue()));
     }
 
     @Override
