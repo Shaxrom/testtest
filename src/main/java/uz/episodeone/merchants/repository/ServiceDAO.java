@@ -29,7 +29,6 @@ public interface ServiceDAO extends JpaRepository<Service, Long> {
     @EntityGraph(value = "Service.categoryAndNames")
     Page<Service> readAllByIdNotNull(Pageable pageable);
 
-    @EntityGraph(value = "Service.all")
     Optional<Service> readById(Long id);
 
     @Query("select e from Service e where e.updatedAt > dateTime and e.deletedAt = null")

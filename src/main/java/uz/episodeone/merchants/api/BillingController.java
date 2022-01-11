@@ -36,8 +36,8 @@ public class BillingController {
     }
 
     @PostMapping("/submit")
-    public EmptyResponse submitPayment(
-        @RequestBody SubmitPaymentDto submitPaymentDto) {
+    public EmptyResponse submitPayment(@RequestBody SubmitPaymentDto submitPaymentDto) {
+        merchantService.findOne(submitPaymentDto.getServiceId());
         return emptyApiResponse();
     }
 }

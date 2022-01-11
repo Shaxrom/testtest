@@ -1,0 +1,1 @@
+update public.service set payment_instrument = 'PAYMART' where id = 1;

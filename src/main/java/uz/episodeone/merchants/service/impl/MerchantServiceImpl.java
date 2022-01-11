@@ -20,9 +20,7 @@ import uz.episodeone.merchants.service.MerchantService;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -56,7 +54,8 @@ public class MerchantServiceImpl implements MerchantService {
         return merchantDAO
                 .readById(id)
                 .map(service -> {
-                    if (service.getPaymentInstrument().equals(PaymentInstrument.GLOBALPAY)) {
+                    if (Objects.nonNull(service.getPaymentInstrument()) &&
+                        service.getPaymentInstrument().equals(PaymentInstrument.PAYMART)) {
                         return serviceMapper.toDto(service);
                     } else {
                         return new ServiceDTO(
@@ -97,7 +96,7 @@ public class MerchantServiceImpl implements MerchantService {
         return merchantDAO.findAllNewlyUpdated(Tools.toInstant(dateTime, jacksonProperties.getTimeZone().getID()))
                 .stream()
                 .map(service -> {
-                    if (service.getPaymentInstrument().equals(PaymentInstrument.GLOBALPAY)) {
+                    if (service.getPaymentInstrument().equals(PaymentInstrument.PAYMART)) {
                         return serviceMapper.toDto(service);
                     } else {
                         return new ServiceDTO(
