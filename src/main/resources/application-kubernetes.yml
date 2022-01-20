@@ -23,9 +23,9 @@ spring:
   ## Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://192.168.0.102:5432/payplat_merchant?currentSchema=public
+#    url: jdbc:postgresql://192.168.0.102:5432/payplat_merchant?currentSchema=public
     #url: jdbc:postgresql://192.168.60.64:5432/payplat_merchant?currentSchema=public
-    #url: jdbc:postgresql://192.168.0.103:5432/payplat?currentSchema=cards
+    url: jdbc:postgresql://192.168.0.101:5432/payplat_merchant?currentSchema=public
 #    url: jdbc:postgresql://127.0.0.1:5432/payplat_merchant?currentSchema=public
     username: merchant
     password: 123456

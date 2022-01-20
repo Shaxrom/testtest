@@ -19,6 +19,7 @@ import uz.episodeone.merchants.repository.ServiceDAO;
 import uz.episodeone.merchants.service.MerchantService;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -29,6 +30,7 @@ import static lombok.AccessLevel.PRIVATE;
 @org.springframework.stereotype.Service
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class MerchantServiceImpl implements MerchantService {
+    PaynetClient paynetClient;
     ServiceDAO merchantDAO;
     ServiceMapper serviceMapper;
     JacksonProperties jacksonProperties;
@@ -43,6 +45,7 @@ public class MerchantServiceImpl implements MerchantService {
         this.merchantDAO = merchantDAO;
         this.serviceMapper = serviceMapper;
         this.jacksonProperties = jacksonProperties;
+        this.paynetClient = paynetClient;
 
         instrumentClients = new HashMap<>();
         instrumentClients.put(PaymentInstrument.PAYNET, paynetClient);
@@ -123,8 +126,23 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Override
     public void submitBilling(SubmitPaymentDto billingTransactionId) {
-        merchantDAO.findById(billingTransactionId.getServiceId())
+
+        merchantDAO
+                .findById(billingTransactionId.getServiceId())
                 .orElseThrow(() -> new BadRequestException(ErrorCode.NOT_FOUND.getValue()));
+
+        List<RequestFieldDTO> collect = billingTransactionId
+                .getFields()
+                .entrySet()
+                .stream()
+                .map(RequestFieldDTO::new)
+                .collect(Collectors.toList());
+
+        paynetClient.perform(
+                billingTransactionId.getServiceId(),
+                Instant.now().toEpochMilli(),
+                billingTransactionId.getBillingTransactionId(),
+                new PaymentRequestedFieldDTO(collect));
     }
 
     @Override
