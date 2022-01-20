@@ -9,12 +9,14 @@ import uz.episodeone.merchants.dto.PaymentRequestedFieldDTO;
 import uz.episodeone.merchants.dto.PerformPaymentResult;
 import uz.episodeone.merchants.helpers.wrapper.SuccessResponseWrapper;
 
-@FeignClient(name = "paynet-adapter", url = "${pp.paynet.baseurl}")
+@FeignClient(name = "paynet-adapter",
+            url = "${pp.paynet.baseurl}",
+            path = "/payment/perform")
 public interface PaynetClient extends PaymentInstrumentClient{
     @GetMapping(name = "/{id}")
     SuccessResponseWrapper<PaymentInstrumentProviderDTO> getProvider(@PathVariable("id") Long paymentInstrumentServiceId);
 
-    @PostMapping(name = "/payment/perform")
+    @PostMapping
     ResponseEntity<PerformPaymentResult> perform(
             @RequestParam("service_id") Long serviceId,
             @RequestParam("time") Long time,

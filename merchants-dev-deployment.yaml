@@ -7,6 +7,7 @@ metadata: # Metadata of the resource kind we are creating
 data:
   application-kubernetes.yml: |-
     server.port: "8093"
+    pp.paynet.baseurl: http://paynet-adapter-dev-service:8094
     bean.message: "Testing reload! Message from backend is: %s <br/> Services : %s"
 ---
 apiVersion: v1 # Kubernetes API version

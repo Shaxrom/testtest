@@ -17,7 +17,7 @@ server:
 
 pp:
   paynet:
-    baseurl: localhost:8081
+    baseurl: localhost:8094
 
 logging.level.uz.episodeone.payplat.client: DEBUG
 feign:
