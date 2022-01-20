@@ -21,7 +21,10 @@ import uz.episodeone.merchants.service.MerchantService;
 import javax.persistence.EntityNotFoundException;
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -125,24 +128,27 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
-    public void submitBilling(SubmitPaymentDto billingTransactionId) {
+    public void submitBilling(SubmitPaymentDto submitPaymentDto) {
 
-        merchantDAO
-                .findById(billingTransactionId.getServiceId())
-                .orElseThrow(() -> new BadRequestException(ErrorCode.NOT_FOUND.getValue()));
+//        merchantDAO
+//                .findById(submitPaymentDto.getServiceId())
+//                .orElseThrow(() -> new BadRequestException(ErrorCode.NOT_FOUND.getValue()));
 
-        List<RequestFieldDTO> collect = billingTransactionId
+        List<RequestFieldDTO> collect = submitPaymentDto
                 .getFields()
                 .entrySet()
                 .stream()
                 .map(RequestFieldDTO::new)
                 .collect(Collectors.toList());
 
-        paynetClient.perform(
-                billingTransactionId.getServiceId(),
+        var perform = paynetClient.perform(
+                submitPaymentDto.getServiceId(),
                 Instant.now().toEpochMilli(),
-                billingTransactionId.getBillingTransactionId(),
-                new PaymentRequestedFieldDTO(collect));
+                submitPaymentDto.getBillingTransactionId(),
+                new PaymentRequestedFieldDTO(collect)).getBody();
+
+        log.info("[submitBilling] perform body: {}", perform);
+//        return submitPaymentDto.getBillingTransactionId()
     }
 
     @Override
