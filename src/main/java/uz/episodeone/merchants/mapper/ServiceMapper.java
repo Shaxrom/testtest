@@ -1,7 +1,6 @@
-package uz.episodeone.merchants.dto.mapper;
+package uz.episodeone.merchants.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import uz.episodeone.merchants.domain.Service;
 import uz.episodeone.merchants.dto.PaymentInstrumentServiceDTO;

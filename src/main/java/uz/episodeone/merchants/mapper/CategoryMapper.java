@@ -1,4 +1,4 @@
-package uz.episodeone.merchants.dto.mapper;
+package uz.episodeone.merchants.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

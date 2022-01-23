@@ -14,13 +14,6 @@ import java.util.Optional;
 
 public interface ServiceDAO extends JpaRepository<Service, Long> {
 
-
-    @EntityGraph(value = "Service.all")
-    Page<Service> findByProvider_IdAndActiveTrue(Long categoryId, Pageable pageable);
-
-    @EntityGraph(value = "Service.all")
-    List<Service> findByProvider_IdAndActiveTrue(Long providerId);
-
     @Query("select e from Service e where e.provider in ?1")
     List<Service> findByProviderIn(List<Provider> providers);
 
@@ -40,4 +33,6 @@ public interface ServiceDAO extends JpaRepository<Service, Long> {
     List<Service> findByProviderIdIn(List<Long> ids);
 
     List<Service> findByProviderId(Long providerId);
+
+    Optional<Service> findByPayInstServiceId(Long payInstServiceId);
 }

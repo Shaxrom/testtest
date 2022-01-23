@@ -1,6 +1,6 @@
 CREATE TABLE public.category
 (
-  id bigint not null constraint category_pkey primary key,
+  id bigserial not null constraint category_pkey primary key,
   created_at timestamp,
   updated_at timestamp,
   deleted_at timestamp,
@@ -18,7 +18,7 @@ ALTER TABLE public.category
 
 CREATE TABLE public.provider
 (
-  id bigint not null constraint provider_pkey primary key,
+  id bigserial not null constraint provider_pkey primary key,
   created_at timestamp,
   updated_at timestamp,
   deleted_at timestamp,
@@ -38,7 +38,7 @@ ALTER TABLE public.provider
 
 CREATE TABLE public.service
 (
-  id bigint not null constraint service_pkey primary key,
+  id bigserial not null constraint service_pkey primary key,
   created_at timestamp,
   updated_at timestamp,
   deleted_at timestamp,

@@ -40,8 +40,8 @@ public class Provider extends SoftDeleteModel {
     @Column(name = "payment_instrument_provider_id")
     private Long paymentInstrumentProviderId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "fk_provider_category_id"))
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "fk_category_id"))
     private Category category;
 
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -52,9 +52,9 @@ public class Provider extends SoftDeleteModel {
         this.paymentInstrument = PaymentInstrument.PAYNET;
     }
 
-    public void addService(Service service) {
-        services.add(service);
-        service.setProvider(this);
+    public void addService(Set<Service> service) {
+        services.addAll(service);
+        service.forEach(s -> s.setProvider(this));
     }
 
     public void addPayInstData(PaymentInstrumentProviderDTO dto) {
@@ -75,4 +75,9 @@ public class Provider extends SoftDeleteModel {
         return getClass().hashCode();
     }
 
+    public Provider update(Provider provider) {
+        this.paymentInstrument = PaymentInstrument.PAYNET;
+        addService(provider.getServices());
+        return this;
+    }
 }

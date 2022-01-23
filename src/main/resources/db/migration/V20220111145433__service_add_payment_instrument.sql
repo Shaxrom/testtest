@@ -1,1 +1,1 @@
-update public.service set payment_instrument = 'PAYMART' where id = 1;
+update public.service set payment_instrument = 'PAYMART' where id = 10000000000;

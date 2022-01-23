@@ -21,7 +21,8 @@ public class Category extends SoftDeleteModel {
 
     private String description;
 
-    private Boolean enabled;
+    @Column(name = "enabled", columnDefinition = "boolean default true", nullable = false)
+    private Boolean enabled = true;
 
     @Column(name = "icon_id")
     private String iconId;
@@ -29,7 +30,8 @@ public class Category extends SoftDeleteModel {
     @Column(name = "paynet_category_id")
     private Long paynetCategoryId;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "category", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+    @ToString.Exclude
     private Set<Provider> providers = new HashSet<>();
 
     @Override
@@ -49,5 +51,10 @@ public class Category extends SoftDeleteModel {
         EnumMap<PaymentInstrument, Long> enumMap = new EnumMap<>(PaymentInstrument.class);
         enumMap.put(PaymentInstrument.PAYNET,this.paynetCategoryId);
         return enumMap;
+    }
+
+    public Category update(Category category) {
+        this.getProviders().addAll(category.getProviders());
+        return this;
     }
 }

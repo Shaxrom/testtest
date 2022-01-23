@@ -12,12 +12,8 @@ spring:
         jdbc:
           batch_size: 50
 
-server:
-  port: 8093
-
-pp:
-  paynet:
-    baseurl: localhost:8094
+server.port: 8093
+pp.paynet.baseurl: localhost:8094
 
 logging.level.uz.episodeone.payplat.client: DEBUG
 feign:

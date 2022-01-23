@@ -35,7 +35,7 @@ public class Service extends SoftDeleteModel {
     @Column(name = "fixed_price")
     private Long fixedPrice;
 
-    @Column(name = "active")
+    @Column(name = "active", columnDefinition = "boolean default true", nullable = false)
     private Boolean active = true;
 
     @Enumerated(EnumType.STRING)
@@ -61,8 +61,8 @@ public class Service extends SoftDeleteModel {
     private String humoTerminalId;
 
     @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "provider_id", foreignKey = @ForeignKey(name = "fk_provider_merchant_id"))
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+    @JoinColumn(name = "provider_id", foreignKey = @ForeignKey(name = "fk_provider_id"))
     private Provider provider;
 
     public Service(Long payInstServiceId) {
@@ -81,5 +81,11 @@ public class Service extends SoftDeleteModel {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    public Service update(Service service) {
+        this.paymentInstrument = PaymentInstrument.PAYNET;
+        this.provider = service.provider;
+        return this;
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import uz.episodeone.merchants.domain.Category;
 import uz.episodeone.merchants.dto.CategoryDTO;
 import uz.episodeone.merchants.dto.Filter;
-import uz.episodeone.merchants.dto.mapper.CategoryMapper;
+import uz.episodeone.merchants.mapper.CategoryMapper;
 import uz.episodeone.merchants.helpers.ErrorCode;
 import uz.episodeone.merchants.repository.CategoryDAO;
 import uz.episodeone.merchants.service.CategoryService;

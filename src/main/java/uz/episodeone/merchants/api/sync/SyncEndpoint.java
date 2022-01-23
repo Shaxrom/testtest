@@ -8,11 +8,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uz.episodeone.merchants.api.sync.dto.MerchantPoolDTO;
+import uz.episodeone.merchants.dto.paynet.PaynetCategoryDTO;
+import uz.episodeone.merchants.dto.paynet.PaynetCategoryShortDTO;
 import uz.episodeone.merchants.helpers.Constants;
 import uz.episodeone.merchants.service.SyncService;
 
+import java.util.List;
+
 import static lombok.AccessLevel.PACKAGE;
 import static lombok.AccessLevel.PRIVATE;
+import static uz.episodeone.merchants.helpers.utils.JsonUtils.successApiResponse;
 
 @Slf4j
 @RestController
@@ -26,6 +31,10 @@ public class SyncEndpoint {
     @PostMapping("/merchants-pool")
     public void syncMerchantPool(@RequestBody MerchantPoolDTO merchantPoolDTO) {
         syncService.syncMerchantPool(merchantPoolDTO);
+    }
 
+    @PostMapping("/paynet")
+    public void sync(@RequestBody List<PaynetCategoryShortDTO> categories) {
+        syncService.syncPaynet(categories);
     }
 }

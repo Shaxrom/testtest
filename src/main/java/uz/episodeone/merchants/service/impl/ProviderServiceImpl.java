@@ -1,6 +1,5 @@
 package uz.episodeone.merchants.service.impl;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +9,7 @@ import uz.episodeone.merchants.client.PaynetClient;
 import uz.episodeone.merchants.domain.Provider;
 import uz.episodeone.merchants.dto.Filter;
 import uz.episodeone.merchants.dto.ProviderDTO;
-import uz.episodeone.merchants.dto.mapper.ProviderMapper;
+import uz.episodeone.merchants.mapper.ProviderMapper;
 import uz.episodeone.merchants.helpers.ErrorCode;
 import uz.episodeone.merchants.repository.ProviderDAO;
 import uz.episodeone.merchants.service.ProviderService;
@@ -19,7 +18,6 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static lombok.AccessLevel.PACKAGE;
 import static lombok.AccessLevel.PRIVATE;
 
 @Slf4j

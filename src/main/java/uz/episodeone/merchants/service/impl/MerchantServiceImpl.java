@@ -11,7 +11,7 @@ import uz.episodeone.merchants.client.PaynetClient;
 import uz.episodeone.merchants.domain.Service;
 import uz.episodeone.merchants.domain.enums.PaymentInstrument;
 import uz.episodeone.merchants.dto.*;
-import uz.episodeone.merchants.dto.mapper.ServiceMapper;
+import uz.episodeone.merchants.mapper.ServiceMapper;
 import uz.episodeone.merchants.helpers.ErrorCode;
 import uz.episodeone.merchants.helpers.Tools;
 import uz.episodeone.merchants.helpers.exceptions.BadRequestException;
