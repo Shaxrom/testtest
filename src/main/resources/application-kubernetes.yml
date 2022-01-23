@@ -23,9 +23,9 @@ spring:
   ## Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
   datasource:
     driver-class-name: org.postgresql.Driver
-#    url: jdbc:postgresql://192.168.0.102:5432/payplat_merchant?currentSchema=public
+    url: jdbc:postgresql://192.168.0.102:5432/payplat_merchant?currentSchema=public
     #url: jdbc:postgresql://192.168.60.64:5432/payplat_merchant?currentSchema=public
-    url: jdbc:postgresql://192.168.0.101:5432/payplat_merchant?currentSchema=public
+#    url: jdbc:postgresql://192.168.0.101:5432/payplat_merchant?currentSchema=public
 #    url: jdbc:postgresql://127.0.0.1:5432/payplat_merchant?currentSchema=public
     username: merchant
     password: 123456
@@ -49,20 +49,20 @@ spring:
     baseline-version: 1
     out-of-order: true
 
-  cloud:
-    kubernetes:
-      #      config:
-      #        name: cards-gw-dev-config
-      #        namespace: ${KUBERNETES_NAMESPACE}
-      client:
-        namespace: default
-      enabled: true
-      secrets:
-        namespace: default
-      discovery:
-        all-namespaces: true
-      reload:
-        enabled: true
+#  cloud:
+#    kubernetes:
+#      #      config:
+#      #        name: cards-gw-dev-config
+#      #        namespace: ${KUBERNETES_NAMESPACE}
+#      client:
+#        namespace: default
+#      enabled: true
+#      secrets:
+#        namespace: default
+#      discovery:
+#        all-namespaces: true
+#      reload:
+#        enabled: true
 
 eureka:
   client:

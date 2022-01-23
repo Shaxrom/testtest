@@ -10,5 +10,6 @@ import uz.episodeone.merchants.dto.paynet.PaynetServiceShortDTO;
 public interface PaynetServiceMapper {
 
     @Mapping(target = "payInstServiceId", source = "id")
+    @Mapping(target = "id", ignore = true)
     Service toEntity(PaynetServiceShortDTO paynetServiceShortDTO);
 }

@@ -12,5 +12,6 @@ import uz.episodeone.merchants.dto.paynet.PaynetProviderShortDTO;
 public interface PaynetProviderMapper {
 
     @Mapping(target = "paymentInstrumentProviderId", source = "id")
+    @Mapping(target = "id", ignore = true)
     Provider toEntity(PaynetProviderShortDTO paynetProviderShortDTO);
 }

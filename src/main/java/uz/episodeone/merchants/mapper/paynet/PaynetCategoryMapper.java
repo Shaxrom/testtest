@@ -13,5 +13,6 @@ import uz.episodeone.merchants.dto.paynet.PaynetCategoryShortDTO;
 public interface PaynetCategoryMapper {
 
     @Mapping(target = "paynetCategoryId", source = "id")
+    @Mapping(target = "id", ignore = true)
     Category toEntity(PaynetCategoryShortDTO paynetCategoryShortDTO);
 }

@@ -54,7 +54,7 @@ public class SyncServiceImpl implements SyncService {
     public void syncPaynet(List<PaynetCategoryShortDTO> categories) {
         categories.stream()
                 .map(paynetCategoryMapper::toEntity)
-                .peek(category -> {
+                .map(category -> {
 
                     var categorySaveOrUpdate = categorySaveOrUpdate(category);
 
@@ -68,6 +68,7 @@ public class SyncServiceImpl implements SyncService {
                                         .map(Provider::getServices)
                                         .ifPresent(q -> q.forEach(service -> serviceSaveOrUpdate(service, providerSaveOrUpdate)));
                             }));
+                    return categorySaveOrUpdate;
                 })
                 .map(categoryDAO::save)
                 .collect(Collectors.toList());
