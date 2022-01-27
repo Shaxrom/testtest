@@ -61,7 +61,7 @@ public class Service extends SoftDeleteModel {
     private String humoTerminalId;
 
     @ToString.Exclude
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "provider_id", foreignKey = @ForeignKey(name = "fk_provider_id"))
     private Provider provider;
 

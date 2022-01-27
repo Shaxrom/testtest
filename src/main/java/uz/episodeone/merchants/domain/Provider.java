@@ -44,7 +44,7 @@ public class Provider extends SoftDeleteModel {
     @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "fk_category_id"))
     private Category category;
 
-    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "provider", fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Service> services = new HashSet<>();
 
     public Provider(ProviderMerchantPoolDTO providerMerchantPoolDTO) {
