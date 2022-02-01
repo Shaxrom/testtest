@@ -3,15 +3,20 @@ package uz.episodeone.merchants.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.episodeone.merchants.client.PaynetClient;
 import uz.episodeone.merchants.domain.Provider;
 import uz.episodeone.merchants.dto.Filter;
 import uz.episodeone.merchants.dto.ProviderDTO;
+import uz.episodeone.merchants.dto.ServiceDTO;
 import uz.episodeone.merchants.mapper.ProviderMapper;
 import uz.episodeone.merchants.helpers.ErrorCode;
+import uz.episodeone.merchants.mapper.ServiceMapper;
 import uz.episodeone.merchants.repository.ProviderDAO;
+import uz.episodeone.merchants.repository.ServiceDAO;
 import uz.episodeone.merchants.service.ProviderService;
 
 import javax.persistence.EntityNotFoundException;
@@ -27,7 +32,9 @@ import static lombok.AccessLevel.PRIVATE;
 public class ProviderServiceImpl implements ProviderService {
 
     ProviderDAO providerDAO;
+    ServiceDAO serviceDAO;
     ProviderMapper providerMapper;
+    ServiceMapper serviceMapper;
     private final PaynetClient paynetClient;
 
     @Override
@@ -86,5 +93,15 @@ public class ProviderServiceImpl implements ProviderService {
                     }
                 });
         return providers.stream().map(providerMapper::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<ProviderDTO> findAll(Pageable pageable) {
+        return providerDAO.findAll(pageable).map(providerMapper::toDto);
+    }
+
+    @Override
+    public Page<ServiceDTO> findServices(Long id, Pageable pageable) {
+        return serviceDAO.findByProviderId(id, pageable).map(serviceMapper::toDto);
     }
 }

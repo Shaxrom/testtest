@@ -3,14 +3,19 @@ package uz.episodeone.merchants.service.impl;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.episodeone.merchants.domain.Category;
 import uz.episodeone.merchants.dto.CategoryDTO;
 import uz.episodeone.merchants.dto.Filter;
+import uz.episodeone.merchants.dto.ProviderDTO;
 import uz.episodeone.merchants.mapper.CategoryMapper;
 import uz.episodeone.merchants.helpers.ErrorCode;
+import uz.episodeone.merchants.mapper.ProviderMapper;
 import uz.episodeone.merchants.repository.CategoryDAO;
+import uz.episodeone.merchants.repository.ProviderDAO;
 import uz.episodeone.merchants.service.CategoryService;
 
 import javax.persistence.EntityNotFoundException;
@@ -25,9 +30,11 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @AllArgsConstructor(access = PACKAGE)
 public class CategoryServiceImpl implements CategoryService {
-    CategoryDAO categoryDAO;
 
-    private final CategoryMapper categoryMapper;
+    CategoryDAO categoryDAO;
+    ProviderDAO providerDAO;
+    CategoryMapper categoryMapper;
+    ProviderMapper providerMapper;
 
     @Override
     public List<CategoryDTO> find(List<Long> ids, Filter filter) {
@@ -46,6 +53,16 @@ public class CategoryServiceImpl implements CategoryService {
             throw new IllegalStateException("Unexpected value");
         }
         return categories.stream().map(categoryMapper::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<CategoryDTO> findAll(Pageable pageable) {
+        return categoryDAO.findAll(pageable).map(categoryMapper::toDto);
+    }
+
+    @Override
+    public Page<ProviderDTO> findProviders(Long id, Pageable pageable) {
+        return providerDAO.findByCategoryId(id, pageable).map(providerMapper::toDto);
     }
 
     @Override
@@ -70,5 +87,6 @@ public class CategoryServiceImpl implements CategoryService {
     public void delete(Long id) {
         categoryDAO.deleteById(id);
     }
+
 
 }

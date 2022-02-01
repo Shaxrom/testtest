@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: kubernetes
+    active: local
   application.name: payment-gw
   jackson:
     time-zone: Asia/Tashkent

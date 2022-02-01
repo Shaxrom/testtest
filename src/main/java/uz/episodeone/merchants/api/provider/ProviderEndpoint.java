@@ -3,9 +3,12 @@ package uz.episodeone.merchants.api.provider;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import uz.episodeone.merchants.dto.Filter;
 import uz.episodeone.merchants.dto.ProviderDTO;
+import uz.episodeone.merchants.dto.ServiceDTO;
 import uz.episodeone.merchants.helpers.Constants;
 import uz.episodeone.merchants.helpers.wrapper.EmptyResponse;
 import uz.episodeone.merchants.helpers.wrapper.SuccessResponseWrapper;
@@ -20,7 +23,7 @@ import static uz.episodeone.merchants.helpers.utils.JsonUtils.successApiResponse
 
 @Slf4j
 @RestController
-@RequestMapping(Constants.API_BASE_PATH + "/provider")
+@RequestMapping(Constants.API_BASE_PATH + "/providers")
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @AllArgsConstructor(access = PACKAGE)
 public class ProviderEndpoint {
@@ -32,6 +35,12 @@ public class ProviderEndpoint {
             @RequestParam(value = "ids",required = false) List<Long> ids,
             @RequestParam(value = "filter",required = false) Filter filter) {
         return successApiResponse(providerService.find(ids,filter));
+    }
+
+    @GetMapping("/{id}/services")
+    public SuccessResponseWrapper<Page<ServiceDTO>> getServices(@PathVariable("id") Long id,
+        Pageable pageable) {
+        return successApiResponse(providerService.findServices(id, pageable));
     }
 
     @PostMapping

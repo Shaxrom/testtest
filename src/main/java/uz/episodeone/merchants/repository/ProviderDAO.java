@@ -33,6 +33,7 @@ public interface ProviderDAO extends JpaRepository<Provider, Long> {
     List<Provider> findByServiceIds(List<Long> ids);
 
     List<Provider> findByCategoryId(Long categoryId);
+    Page<Provider> findByCategoryId(Long categoryId, Pageable pageable);
 
     Optional<Provider> findByPaymentInstrumentProviderId(Long providerId);
 }

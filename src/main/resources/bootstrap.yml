@@ -1,6 +1,15 @@
 spring:
   cloud:
     kubernetes:
-      enabled: false
+      config:
+        name: merchants-dev-config
+        namespace: default
+      client:
+        namespace: default
+      enabled: true
+      secrets:
+        namespace: default
+      discovery:
+        all-namespaces: true
       reload:
-        enabled: false
+        enabled: true

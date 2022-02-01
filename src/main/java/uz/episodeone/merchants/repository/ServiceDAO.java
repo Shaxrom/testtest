@@ -33,6 +33,7 @@ public interface ServiceDAO extends JpaRepository<Service, Long> {
     List<Service> findByProviderIdIn(List<Long> ids);
 
     List<Service> findByProviderId(Long providerId);
+    Page<Service> findByProviderId(Long providerId, Pageable pageable);
 
     Optional<Service> findByPayInstServiceId(Long payInstServiceId);
 }
