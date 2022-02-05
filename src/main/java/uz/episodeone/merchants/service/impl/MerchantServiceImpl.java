@@ -14,7 +14,7 @@ import uz.episodeone.merchants.dto.*;
 import uz.episodeone.merchants.mapper.ServiceMapper;
 import uz.episodeone.merchants.helpers.ErrorCode;
 import uz.episodeone.merchants.helpers.Tools;
-import uz.episodeone.merchants.helpers.exceptions.BadRequestException;
+import uz.episodeone.merchants.exceptions.BadRequestException;
 import uz.episodeone.merchants.repository.ServiceDAO;
 import uz.episodeone.merchants.service.MerchantService;
 
@@ -66,7 +66,7 @@ public class MerchantServiceImpl implements MerchantService {
                     } else {
                         return new ServiceDTO(
                                 service,
-                                instrumentClients.get(service.getPaymentInstrument()).getService(service.getPayInstServiceId()).getData());
+                                instrumentClients.get(service.getPaymentInstrument()).getService(service.getPayInstServiceId()));
                     }
                 })
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.SERVICE_NOT_AVAILABLE.getValue()));
@@ -107,7 +107,7 @@ public class MerchantServiceImpl implements MerchantService {
                     } else {
                         return new ServiceDTO(
                                 service,
-                                instrumentClients.get(service.getPaymentInstrument()).getService(service.getPayInstServiceId()).getData());
+                                instrumentClients.get(service.getPaymentInstrument()).getService(service.getPayInstServiceId()));
                     }
                 })
                 .collect(Collectors.toList());
@@ -145,7 +145,7 @@ public class MerchantServiceImpl implements MerchantService {
                 submitPaymentDto.getServiceId(),
                 Instant.now().toEpochMilli(),
                 submitPaymentDto.getBillingTransactionId(),
-                new PaymentRequestedFieldDTO(collect)).getBody();
+                new PaymentRequestedFieldDTO(collect));
 
         log.info("[submitBilling] perform body: {}", perform);
 //        return submitPaymentDto.getBillingTransactionId()
@@ -184,7 +184,7 @@ public class MerchantServiceImpl implements MerchantService {
                                         .getValue()
                                         .stream()
                                         .map(Service::getPayInstServiceId)
-                                        .collect(Collectors.toList())).getData())
+                                        .collect(Collectors.toList())))
                 .flatMap(Collection::stream)
                 .map(serviceMapper::toDto)
                 .collect(Collectors.toList());

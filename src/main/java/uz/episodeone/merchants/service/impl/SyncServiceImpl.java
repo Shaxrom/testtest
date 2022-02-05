@@ -3,6 +3,7 @@ package uz.episodeone.merchants.service.impl;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import uz.episodeone.merchants.api.sync.dto.MerchantPoolDTO;
 import uz.episodeone.merchants.api.sync.dto.ProviderMerchantPoolDTO;
 import uz.episodeone.merchants.domain.Category;
@@ -10,7 +11,7 @@ import uz.episodeone.merchants.domain.Provider;
 import uz.episodeone.merchants.domain.Service;
 import uz.episodeone.merchants.domain.enums.PaymentInstrument;
 import uz.episodeone.merchants.dto.paynet.PaynetCategoryShortDTO;
-import uz.episodeone.merchants.helpers.exceptions.BadRequestException;
+import uz.episodeone.merchants.exceptions.BadRequestException;
 import uz.episodeone.merchants.mapper.paynet.PaynetCategoryMapper;
 import uz.episodeone.merchants.repository.CategoryDAO;
 import uz.episodeone.merchants.repository.ProviderDAO;
@@ -34,6 +35,7 @@ public class SyncServiceImpl implements SyncService {
     ServiceDAO serviceDAO;
     PaynetCategoryMapper paynetCategoryMapper;
 
+    @Async
     @Override
     public void syncMerchantPool(MerchantPoolDTO merchantPoolDTO) {
         if (merchantPoolDTO.getType().equals(PaymentInstrument.PAYNET)) {
@@ -50,6 +52,7 @@ public class SyncServiceImpl implements SyncService {
         }
     }
 
+    @Async
     @Override
     public void syncPaynet(List<PaynetCategoryShortDTO> categories) {
         categories.stream()

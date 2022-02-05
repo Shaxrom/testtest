@@ -21,6 +21,8 @@ import uz.episodeone.merchants.service.ProviderService;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -35,7 +37,7 @@ public class ProviderServiceImpl implements ProviderService {
     ServiceDAO serviceDAO;
     ProviderMapper providerMapper;
     ServiceMapper serviceMapper;
-    private final PaynetClient paynetClient;
+    PaynetClient paynetClient;
 
     @Override
     @Transactional
@@ -82,16 +84,18 @@ public class ProviderServiceImpl implements ProviderService {
         } else {
             throw new IllegalStateException("Unexpected value");
         }
-        providers.forEach(provider -> {
-                    if (provider.getPaymentInstrumentProviderId() != null) {
-                        switch (provider.getPaymentInstrument()) {
-                            case PAYNET:
-                                provider.addPayInstData(paynetClient.getProvider(provider.getPaymentInstrumentProviderId()).getData());
-                                break;
-                            //TODO add case for other PaymentInstrumets if they added
-                        }
-                    }
-                });
+        providers.stream()
+            .filter(provider -> Objects.nonNull(provider.getPaymentInstrumentProviderId()))
+            .filter(provider -> Objects.nonNull(provider.getPaymentInstrument()))
+            .forEach(provider -> {
+                switch (provider.getPaymentInstrument()) {
+                    case PAYNET:
+                        Optional.ofNullable(paynetClient.getProvider(provider.getPaymentInstrumentProviderId()))
+                            .ifPresent(provider::addPayInstData);
+                        break;
+                        //TODO add case for other PaymentInstrumets if they added
+                }
+            });
         return providers.stream().map(providerMapper::toDto).collect(Collectors.toList());
     }
 

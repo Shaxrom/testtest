@@ -8,22 +8,21 @@ import uz.episodeone.merchants.dto.PaymentInstrumentProviderDTO;
 import uz.episodeone.merchants.dto.PaymentRequestedFieldDTO;
 import uz.episodeone.merchants.dto.PerformPaymentResult;
 import uz.episodeone.merchants.dto.paynet.PaynetCategoryDTO;
-import uz.episodeone.merchants.helpers.wrapper.SuccessResponseWrapper;
 
 import java.util.List;
 
 @FeignClient(name = "paynet-adapter", url = "${pp.paynet.baseurl}")
 public interface PaynetClient extends PaymentInstrumentClient{
     @GetMapping(name = "/{id}")
-    SuccessResponseWrapper<PaymentInstrumentProviderDTO> getProvider(@PathVariable("id") Long paymentInstrumentServiceId);
+    PaymentInstrumentProviderDTO getProvider(@PathVariable("id") Long paymentInstrumentServiceId);
 
     @PostMapping("/payment/perform")
-    ResponseEntity<PerformPaymentResult> perform(
+    PerformPaymentResult perform(
             @RequestParam("service_id") Long serviceId,
             @RequestParam("time") Long time,
             @RequestParam("id") String id,
             @RequestBody PaymentRequestedFieldDTO requestedFieldDTO);
 
     @PostMapping("/syncPaynet")
-    ResponseEntity<List<PaynetCategoryDTO>>sync();
+    List<PaynetCategoryDTO> sync();
 }
