@@ -1,5 +1,7 @@
 package uz.episodeone.merchants.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import uz.episodeone.merchants.dto.*;
 
@@ -26,4 +28,6 @@ public interface MerchantService {
     MerchantServiceDetailsDto initBilling(InitBillingDto initBillingDto);
 
     void submitBilling(SubmitPaymentDto billingTransactionId);
+
+    Page<ServiceDTO> getServices(Long providerId, Pageable pageable);
 }

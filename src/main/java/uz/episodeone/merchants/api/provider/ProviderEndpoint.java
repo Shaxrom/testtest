@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.episodeone.merchants.dto.Filter;
+import uz.episodeone.merchants.dto.ProviderAdminDTO;
 import uz.episodeone.merchants.dto.ProviderDTO;
 import uz.episodeone.merchants.dto.ServiceDTO;
 import uz.episodeone.merchants.helpers.Constants;
@@ -26,6 +27,13 @@ import static lombok.AccessLevel.PRIVATE;
 public class ProviderEndpoint {
 
     ProviderService providerService;
+
+    public ResponseEntity<Page<ProviderAdminDTO>> merchants(
+            @RequestParam(name = "name", required = false) String name,
+            @RequestParam(name = "categoryId", required = false) Long categoryId,
+            Pageable pageable) {
+        return ResponseEntity.ok(providerService.getProviders(name, categoryId, pageable));
+    }
 
     @GetMapping
     public ResponseEntity<List<ProviderDTO>> getAll(

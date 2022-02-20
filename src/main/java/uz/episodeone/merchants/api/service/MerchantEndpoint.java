@@ -3,6 +3,8 @@ package uz.episodeone.merchants.api.service;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -63,6 +65,11 @@ public class MerchantEndpoint {
     public ResponseEntity<List<ServiceDTO>> getNewlyUpdateMerchants(
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date) {
         return ResponseEntity.ok(merchantService.getLastUpdated(date));
+    }
+
+    @GetMapping("/admin")
+    public ResponseEntity<Page<ServiceDTO>> services(@RequestParam(value = "id") Long providerId, Pageable pageable) {
+        return ResponseEntity.ok(merchantService.getServices(providerId, pageable));
     }
 
 }

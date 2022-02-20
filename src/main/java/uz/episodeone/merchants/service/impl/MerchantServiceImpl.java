@@ -5,9 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jackson.JacksonProperties;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import uz.episodeone.merchants.client.PaymentInstrumentClient;
 import uz.episodeone.merchants.client.PaynetClient;
+import uz.episodeone.merchants.domain.Provider;
 import uz.episodeone.merchants.domain.Service;
 import uz.episodeone.merchants.domain.enums.PaymentInstrument;
 import uz.episodeone.merchants.dto.*;
@@ -15,6 +19,7 @@ import uz.episodeone.merchants.mapper.ServiceMapper;
 import uz.episodeone.merchants.helpers.ErrorCode;
 import uz.episodeone.merchants.helpers.Tools;
 import uz.episodeone.merchants.exceptions.BadRequestException;
+import uz.episodeone.merchants.repository.ProviderDAO;
 import uz.episodeone.merchants.repository.ServiceDAO;
 import uz.episodeone.merchants.service.MerchantService;
 
@@ -38,17 +43,21 @@ public class MerchantServiceImpl implements MerchantService {
     ServiceMapper serviceMapper;
     JacksonProperties jacksonProperties;
     HashMap<PaymentInstrument, PaymentInstrumentClient> instrumentClients;
+    ProviderDAO providerDAO;
+    ServiceDAO serviceDAO;
 
     @Autowired
     public MerchantServiceImpl(
             ServiceDAO merchantDAO,
             ServiceMapper serviceMapper,
             JacksonProperties jacksonProperties,
-            @Lazy PaynetClient paynetClient) {
+            @Lazy PaynetClient paynetClient, ProviderDAO providerDAO, ServiceDAO serviceDAO) {
         this.merchantDAO = merchantDAO;
         this.serviceMapper = serviceMapper;
         this.jacksonProperties = jacksonProperties;
         this.paynetClient = paynetClient;
+        this.providerDAO = providerDAO;
+        this.serviceDAO = serviceDAO;
 
         instrumentClients = new HashMap<>();
         instrumentClients.put(PaymentInstrument.PAYNET, paynetClient);
@@ -149,6 +158,17 @@ public class MerchantServiceImpl implements MerchantService {
 
         log.info("[submitBilling] perform body: {}", perform);
 //        return submitPaymentDto.getBillingTransactionId()
+    }
+
+    @Override
+    public Page<ServiceDTO> getServices(Long providerId, Pageable pageable) {
+        log.info("[getServices] provider id: {}",providerId);
+        try {
+            Provider provider = providerDAO.getById(providerId);
+            return new PageImpl<>(serviceMapper.toDtoList(serviceDAO.findByProviderId(providerId, pageable).getContent()));
+        } catch (javax.persistence.EntityNotFoundException e){
+            throw new EntityNotFoundException(ErrorCode.NOT_FOUND.getValue());
+        }
     }
 
     @Override

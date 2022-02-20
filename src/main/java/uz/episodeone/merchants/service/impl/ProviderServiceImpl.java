@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import uz.episodeone.merchants.client.PaynetClient;
 import uz.episodeone.merchants.domain.Provider;
 import uz.episodeone.merchants.dto.Filter;
+import uz.episodeone.merchants.dto.ProviderAdminDTO;
 import uz.episodeone.merchants.dto.ProviderDTO;
 import uz.episodeone.merchants.dto.ServiceDTO;
 import uz.episodeone.merchants.mapper.ProviderMapper;
@@ -107,5 +108,10 @@ public class ProviderServiceImpl implements ProviderService {
     @Override
     public Page<ServiceDTO> findServices(Long id, Pageable pageable) {
         return serviceDAO.findByProviderId(id, pageable).map(serviceMapper::toDto);
+    }
+
+    @Override
+    public Page<ProviderAdminDTO> getProviders(String name, Long categoryId, Pageable pageable) {
+        return providerDAO.getAllAdmin(name, categoryId, pageable);
     }
 }

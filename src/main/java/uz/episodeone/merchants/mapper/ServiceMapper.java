@@ -15,6 +15,7 @@ public interface ServiceMapper {
 
     void update(ServiceDTO serviceDTO, @MappingTarget Service serviceToUpdate);
 
+    List<ServiceDTO> toDtoList(List<Service> services);
 
     ServiceDTO toDto(Service save);
 
