@@ -30,6 +30,12 @@ public class Provider extends SoftDeleteModel {
     @Column(name = "active", columnDefinition = "boolean default true", nullable = false)
     private Boolean active = true;
 
+    @Column(name = "address_registry")
+    private String addressRegistry;
+
+    @Column(name = "inn")
+    private String inn;
+
     @Column(name = "icon_id")
     private String iconId;
 

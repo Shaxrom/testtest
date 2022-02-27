@@ -40,7 +40,7 @@ public interface ProviderDAO extends JpaRepository<Provider, Long> {
     Optional<Provider> findByPaymentInstrumentProviderId(Long providerId);
 
     @Query(
-            "select new uz.mypay.dto.ProviderAdminDTO (" +
+            "select new uz.episodeone.merchants.dto.ProviderAdminDTO (" +
                     "      p.id, " +
                     "      p.legalName, " +
                     "      p.name, " +
