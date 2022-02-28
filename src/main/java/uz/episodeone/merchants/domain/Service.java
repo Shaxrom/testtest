@@ -32,6 +32,9 @@ public class Service extends SoftDeleteModel {
     @Column(name = "max_amount")
     private Long maxAmount;
 
+    @Column(name = "comission")
+    private Long comission;
+
     @Column(name = "fixed_price")
     private Long fixedPrice;
 

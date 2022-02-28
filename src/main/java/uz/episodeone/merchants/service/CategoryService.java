@@ -9,6 +9,7 @@ import uz.episodeone.merchants.dto.ProviderDTO;
 
 
 import java.util.List;
+import java.util.Map;
 
 public interface CategoryService {
     List<CategoryDTO> find(List<Long> ids, Filter filter);
@@ -23,4 +24,6 @@ public interface CategoryService {
     Page<CategoryDTO> findAll(Pageable pageable);
 
     Page<ProviderDTO> findProviders(Long id, Pageable pageable);
+
+    Map<Long, String> getProviderServiceIds();
 }

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.episodeone.merchants.domain.Category;
+import uz.episodeone.merchants.domain.generic.Model;
 import uz.episodeone.merchants.dto.CategoryDTO;
 import uz.episodeone.merchants.dto.Filter;
 import uz.episodeone.merchants.dto.ProviderDTO;
@@ -16,10 +17,12 @@ import uz.episodeone.merchants.helpers.ErrorCode;
 import uz.episodeone.merchants.mapper.ProviderMapper;
 import uz.episodeone.merchants.repository.CategoryDAO;
 import uz.episodeone.merchants.repository.ProviderDAO;
+import uz.episodeone.merchants.repository.ServiceDAO;
 import uz.episodeone.merchants.service.CategoryService;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static lombok.AccessLevel.PACKAGE;
@@ -32,6 +35,7 @@ import static lombok.AccessLevel.PRIVATE;
 public class CategoryServiceImpl implements CategoryService {
 
     CategoryDAO categoryDAO;
+    ServiceDAO serviceDAO;
     ProviderDAO providerDAO;
     CategoryMapper categoryMapper;
     ProviderMapper providerMapper;
@@ -63,6 +67,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Page<ProviderDTO> findProviders(Long id, Pageable pageable) {
         return providerDAO.findByCategoryId(id, pageable).map(providerMapper::toDto);
+    }
+
+    @Override
+    public Map<Long, String> getProviderServiceIds() {
+        return serviceDAO.findAll().stream().collect(Collectors.toMap(Model::getId, s -> s.getProvider().getCategory().getDescription()));
     }
 
     @Override

@@ -12,6 +12,8 @@ import uz.episodeone.merchants.dto.ProviderDTO;
 import uz.episodeone.merchants.helpers.Constants;
 import uz.episodeone.merchants.service.CategoryService;
 
+import java.util.Map;
+
 import static lombok.AccessLevel.PACKAGE;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -30,9 +32,13 @@ public class CategoryEndpoint {
     }
 
     @GetMapping("/{id}/providers")
-    public ResponseEntity<Page<ProviderDTO>> getProviders(@PathVariable("id") Long id,
-                                                                  Pageable pageable) {
+    public ResponseEntity<Page<ProviderDTO>> getProviders(@PathVariable("id") Long id, Pageable pageable) {
         return ResponseEntity.ok(categoryService.findProviders(id, pageable));
+    }
+
+    @GetMapping("/serviceIds")
+    public ResponseEntity<Map<Long, String>> getProviders() {
+        return ResponseEntity.ok(categoryService.getProviderServiceIds());
     }
 
     @PostMapping
