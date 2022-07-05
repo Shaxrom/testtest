@@ -22,7 +22,7 @@
         <rollingPolicy
                 class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily and when the file reaches 10 MegaBytes -->
-            <fileNamePattern>${LOGS}/archived/gpcorelog-%d{yyyy-MM-dd}.%i.log.zip
+            <fileNamePattern>${LOGS}/archived/gp_merchant-%d{yyyy-MM-dd}.%i.log.zip
             </fileNamePattern>
             <maxHistory>365</maxHistory>
             <timeBasedFileNamingAndTriggeringPolicy

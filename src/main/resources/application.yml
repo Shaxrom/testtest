@@ -1,5 +1,70 @@
-server.port: 8093
-
 spring:
-  profiles:
-    active: kubernetes
+#  profiles:
+#    active: kubernetes
+  jackson:
+    time-zone: Asia/Tashkent
+  jpa:
+    properties:
+      hibernate:
+        # batch_size determines the number of updates (inserts, updates and deletes) in a single db hit, reasonable if order_inserts is true
+        order_inserts: true
+        jdbc:
+          batch_size: 50
+          lob.non_contextual_creation: true
+        # The SQL dialect makes Hibernate generate better SQL for the chosen database
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+        # Used to control if we should consult the JDBC metadata to determine certain Settings default values when the db may not be available
+        temp:
+          use_jdbc_metadata_defaults: false
+        # Initialize Lazy Proxies or Collections outside a given Transactional Persistence Context.
+        enable_lazy_load_no_trans: true
+    #        default_schema: merchants
+
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    open-in-view: false
+    show-sql: true
+    # Hibernate ddl auto (create, create-drop, validate, update)
+    hibernate:
+      ddl-auto: none
+  ## Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/merchant?currentSchema=public
+    username: merchant
+    password: 123456
+    # Hikari is a JDBC DataSource implementation that provides a connection pooling mechanism
+    hikari:
+      pool-name: SpringBootJPAHikariCP
+      connection-timeout: 60000
+      idle-timeout: 60000
+      max-lifetime: 180000
+      maximum-pool-size: 5
+      minimum-idle: 1
+      connection-test-query: SELECT 1
+      auto-commit: true
+      driver-class-name: org.postgresql.Driver
+  ## Flyway Configuration
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    check-location: true
+    validate-on-migrate: true
+    baseline-version: 1
+    out-of-order: true
+
+server.port: 8093
+gp.paynet.baseurl: localhost:8094
+gp.uzcard.baseurl: localhost:8091
+
+logging.level.uz.episodeone.merchants.client: DEBUG
+feign:
+  circuitbreaker.enabled: true
+  hystrix.enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 5000000
+        readTimeout: 5000000
+        loggerLevel: full
+
+hystrix.command.default.execution.timeout.enabled: false
